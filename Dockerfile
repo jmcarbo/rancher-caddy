@@ -25,7 +25,7 @@ FROM alpine:latest
 MAINTAINER ZZROT LLC <docker@zzrot.com>
 
 RUN apk --no-cache add git \
-    && apk --no-cache add --virtual devs tar curl
+    && apk --no-cache add tar curl
 
 #Install Caddy Server, and All Middleware
 RUN curl "https://caddyserver.com/download/build?os=linux&arch=amd64&features=cors,git,hugo,ipfilter,jsonp,jwt,mailout,prometheus,realip,search,upload" \
@@ -44,14 +44,14 @@ ADD files/confd.toml /etc/confd/conf.d/confd.toml
 ADD files/Caddyfile.tmpl /etc/confd/templates/Caddyfile.tmpl
 
 #Remove build devs
-RUN apk del devs
+#RUN apk del devs
 
 #Copy over a default Caddyfile
 COPY ./Caddyfile /etc/Caddyfile
 
 #USER caddy
 
-ENTRYPOINT ["tini"]
+#ENTRYPOINT ["tini"]
 
 #CMD ["caddy", "--conf", "/etc/Caddyfile"]
 CMD ["/start"]

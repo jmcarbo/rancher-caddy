@@ -1,5 +1,5 @@
 caddy:
-  image: jmcarbo/rancher-caddy
+  image: jmcarbo/rancher-caddy:latest
   ports:
     - 80:80
     - 443:443
