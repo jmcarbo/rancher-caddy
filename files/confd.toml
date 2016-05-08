@@ -6,5 +6,6 @@ keys = [
     "/self",
     "/containers",
     "/services",
+    "/stacks",
 ]
 #check_cmd = "/usr/local/bin/get_certificates.sh"
