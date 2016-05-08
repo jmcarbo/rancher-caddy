@@ -1,0 +1,12 @@
+caddy:
+  image: rancher-caddy
+  ports:
+    - 80:80
+    - 443:443
+  volumes:
+    #- $PWD/test/Caddyfile:/etc/Caddyfile
+    - /nfs/caddy:/root/.caddy
+    - /nfs/caddy-logs:/logs
+  labels:
+    io.rancher.container.pull_image: always
+    io.rancher.scheduler.affinity:host_label: jmca.frontend=true

@@ -1,0 +1,17 @@
+kibana2.imim.cat:443 {
+  basicauth / Bob hiccup
+  proxy / 192.168.10.30:5601 {
+    websocket
+    proxy_header Host {host}
+    proxy_header X-Real-IP {remote}
+    proxy_header X-Forwarded-Proto {scheme}
+  }
+  log /logs/kibana-access.log
+  {
+    rotate {
+      size 100 # Rotate after 100 MB
+      age  14  # Keep log files for 14 days
+      keep 10  # Keep at most 10 log files
+    }
+  }
+}

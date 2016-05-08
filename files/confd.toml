@@ -1,0 +1,10 @@
+[template]
+src = "Caddyfile.tmpl"
+dest = "/etc/Caddyfile.toml"
+prefix = "/latest"
+keys = [
+    "/self",
+    "/containers",
+    "/services",
+]
+#check_cmd = "/usr/local/bin/get_certificates.sh"
