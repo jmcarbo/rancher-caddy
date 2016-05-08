@@ -37,7 +37,9 @@ ADD start /start
 RUN chmod +x /start
 ADD files/gosuv /usr/local/bin/gosuv
 RUN chmod +x /usr/local/bin/gosuv
-RUN bash -c 'mkdir -p /etc/confd/{conf.d,templates}'
+RUN mkdir /etc/confd
+RUN mkdir /etc/confd/conf.d
+RUN mkdir /etc/confd/templates
 ADD files/confd.toml /etc/confd/conf.d/confd.toml
 ADD files/Caddyfile.tmpl /etc/confd/templates/Caddyfile.tmpl
 
