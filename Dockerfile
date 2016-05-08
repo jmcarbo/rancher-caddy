@@ -21,10 +21,10 @@
 #CMD "/start.sh"
 #VOLUME "/acme"
 
-FROM alpine:edge
+FROM alpine:latest
 MAINTAINER ZZROT LLC <docker@zzrot.com>
 
-RUN apk --no-cache add tini git \
+RUN apk --no-cache add git \
     && apk --no-cache add --virtual devs tar curl
 
 #Install Caddy Server, and All Middleware

@@ -10,3 +10,6 @@ caddy:
   labels:
     io.rancher.container.pull_image: always
     io.rancher.scheduler.affinity:host_label: jmca.frontend=true
+  command: /bin/sh
+  tty: true
+  stdin: true
