@@ -8,7 +8,7 @@
    {{ $linkelements := split $link "/" }}
    {{ $stack := index $link 0 }}
    {{ $service := index $link 1 }}
-   {{ $containers := gets "/stacks/" . $stack . "/services/" . $service . "/containers" }}
+   {{ $containers := gets (printf "/stacks/%s/services/%s/containers" $stack $service) }}
    # containers {{ $containers }}
    {{ $proxies := split (index $line 1) "," }}
    # proxies {{ $proxies }}
