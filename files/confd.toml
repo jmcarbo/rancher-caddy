@@ -1,6 +1,6 @@
 [template]
 src = "Caddyfile.tmpl"
-dest = "/etc/Caddyfile.toml"
+dest = "/etc/Caddyfile"
 prefix = "/latest"
 keys = [
     "/self",
