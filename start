@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 export GODEBUG=netdns=cgo
 sleep 10
 gosuv add --name "confd" -- /usr/local/bin/confd -backend rancher -interval ${CONFD_INTERVAL:-15}
