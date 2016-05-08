@@ -5,6 +5,11 @@
    # line {{ $line }}
    {{ $link := index $line 0 }}
    # link {{ $link }}
+   {{ $linkelements := split $link "/" }}
+   {{ $stack := index $link 0 }}
+   {{ $service := index $link 1 }}
+   {{ $containers := gets "/stacks/" . $stack . "/services/" . $service . "/containers" }}
+   # containers {{ $containers }}
    {{ $proxies := split (index $line 1) "," }}
    # proxies {{ $proxies }}
    {{ range $proxies }}
