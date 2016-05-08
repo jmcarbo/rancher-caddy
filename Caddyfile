@@ -1,4 +1,4 @@
-kibana2.imim.cat:443 {
+bla.name.com:80 {
   basicauth / Bob hiccup
   proxy / 192.168.10.30:5601 {
     websocket

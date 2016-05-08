@@ -1,5 +1,5 @@
 build:
-	docker build -t rancher-caddy .
+	docker build -t jmcarbo/rancher-caddy .
 
 
 deploy:
