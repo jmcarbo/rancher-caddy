@@ -19,7 +19,13 @@
      {{ $containers := gets (printf "/stacks/%s/services/%s/containers/*/ips/*" $stack $service) -}}
      {{ if gt (len $containers) 0 -}}
        {{ range $proxies -}}{{ $vhost := split . ":" -}}{{ $vhostname := index $vhost 0 -}}{{ $ports := split (index $vhost 1) "=" -}}{{ $dport := index $ports 0 -}}{{$vhostname}}:{{$dport}} {{end -}} {
-         #basicauth / Bob hiccup
+         {{if gt (len $line) 2 -}}
+           {{$authorization := index $line 2 -}}
+           {{$authitems := split $authorization ":" -}}
+           {{$user := index $authitems 0 -}}
+           {{$password := index $authitems 1 -}}
+           basicauth / {{$user}} {{$password}}
+         {{end -}}
          proxy / {{range $containers -}}{{.Value}}:{{$sport}} {{end -}} {
     	    websocket
     	    proxy_header Host {host}
