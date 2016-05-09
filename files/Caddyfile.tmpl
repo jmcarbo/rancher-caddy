@@ -31,6 +31,7 @@
     	    proxy_header Host {host}
     	    proxy_header X-Real-IP {remote}
     	    proxy_header X-Forwarded-Proto {scheme}
+            insecure_skip_verify
          }
          log /logs/{{$stack}}-{{$service}}-access.log
          {
@@ -53,6 +54,7 @@
       	    proxy_header Host {{$targethostname}}
       	    proxy_header X-Real-IP {remote}
       	    proxy_header X-Forwarded-Proto {scheme}
+            insecure_skip_verify
            }
            log /logs/{{$vhostname}}-access.log
            {
@@ -73,6 +75,7 @@
       	    proxy_header Host {host}
       	    proxy_header X-Real-IP {remote}
       	    proxy_header X-Forwarded-Proto {scheme}
+            insecure_skip_verify
            }
            log /logs/{{$vhostname}}-access.log
            {
