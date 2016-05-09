@@ -12,7 +12,7 @@
    {{ $sport := index $ports 1 -}}
 
    {{ $link := index $line 0 -}}
-   {{ $linkelements := split $link "/" -}}
+   {{ $linkelements := split $link "\" -}}
    {{ if gt (len $linkelements) 1 -}}
      {{ $stack := index $linkelements 0 -}}
      {{ $service := index $linkelements 1 -}}
