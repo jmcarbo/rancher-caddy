@@ -15,5 +15,6 @@ caddy:
     - HOSTS=cad3/isawesome;isawesome.192.168.10.2.xip.io:80=80,isawesome2.192.168.10.2.xip.io:80=80
       @isawesome/rufus;rufus.192.168.10.2.xip.io:80=80,isawesome.193.145.244.254.xip.io:80=80
       @hello/world;hello.192.168.10.2.xip.io:80=80
+      @marbiobanc.imim.es;marbiobanc.193.145.244.254.xip.io:80=80
   tty: true
   stdin: true

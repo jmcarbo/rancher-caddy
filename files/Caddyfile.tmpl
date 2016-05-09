@@ -37,10 +37,18 @@
         }
     {{end -}}
   {{else -}}
+       {{ $target := $link -}}
+       {{ $targethostname := $link -}}
+       {{ $newlinks := split $link "#" -}}
+       {{ if gt (len $newlinks) 1 -}}
+         {{$taget := index $newlinks 0 -}}
+         {{$tagethostname := index $newlinks 1 -}}
+       {{end -}}
+
        {{ range $proxies -}}{{ $vhost := split . ":" -}}{{ $vhostname := index $vhost 0 -}}{{ $ports := split (index $vhost 1) "=" -}}{{ $dport := index $ports 0 -}}{{$vhostname}}:{{$dport}} {{end -}} {
-         proxy / {{$link}}:{{$sport}} {
+         proxy / {{$target}}:{{$sport}} {
     	    websocket
-    	    proxy_header Host {host}
+    	    proxy_header Host {{$targethostname}}
     	    proxy_header X-Real-IP {remote}
     	    proxy_header X-Forwarded-Proto {scheme}
          }
