@@ -2,6 +2,15 @@
 {{ $hosts := split (getenv "HOSTS") "@" -}}
 {{ range $hosts }}
    {{ $line := split . ";" -}}
+
+   {{ $proxies := split (index $line 1) "," -}}
+   {{ $proxy := index $proxies 0 -}}
+   {{ $vhost := split $proxy ":" -}}
+   {{ $vhostname := index $vhost 0 -}}
+   {{ $ports := split (index $vhost 1) "=" -}}
+   {{ $dport := index $ports 0 -}}
+   {{ $sport := index $ports 1 -}}
+
    {{ $link := index $line 0 -}}
    {{ $linkelements := split $link "/" -}}
    {{ if gt (len $linkelements) 1 -}}
@@ -9,14 +18,6 @@
      {{ $service := index $linkelements 1 -}}
      {{ $containers := gets (printf "/stacks/%s/services/%s/containers/*/ips/*" $stack $service) -}}
      {{ if gt (len $containers) 0 -}}
-       {{ $proxies := split (index $line 1) "," -}}
-       {{ $proxy := index $proxies 0 -}}
-       {{ $vhost := split $proxy ":" -}}
-       {{ $vhostname := index $vhost 0 -}}
-       {{ $ports := split (index $vhost 1) "=" -}}
-       {{ $dport := index $ports 0 -}}
-       {{ $sport := index $ports 1 -}}
-       
        {{ range $proxies -}}{{ $vhost := split . ":" -}}{{ $vhostname := index $vhost 0 -}}{{ $ports := split (index $vhost 1) "=" -}}{{ $dport := index $ports 0 -}}{{$vhostname}}:{{$dport}} {{end -}} {
          #basicauth / Bob hiccup
          proxy / {{range $containers -}}{{.Value}}:{{$sport}} {{end -}} {
@@ -35,5 +36,23 @@
            }
         }
     {{end -}}
+  {{else -}}
+       {{ range $proxies -}}{{ $vhost := split . ":" -}}{{ $vhostname := index $vhost 0 -}}{{ $ports := split (index $vhost 1) "=" -}}{{ $dport := index $ports 0 -}}{{$vhostname}}:{{$dport}} {{end -}} {
+         proxy / {{$link}}:{{$sport}} {
+    	    websocket
+    	    proxy_header Host {host}
+    	    proxy_header X-Real-IP {remote}
+    	    proxy_header X-Forwarded-Proto {scheme}
+         }
+         log /logs/{{$vhostname}}-access.log
+         {
+           rotate {
+             size 100 # Rotate after 100 MB
+               age  14  # Keep log files for 14 days
+               keep 10  # Keep at most 10 log files
+             }
+           }
+        }
   {{end -}}
+
 {{ end }}
