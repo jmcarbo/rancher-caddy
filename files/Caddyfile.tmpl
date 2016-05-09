@@ -23,7 +23,7 @@
    
 	{{$vhostname}}:{{$dport}} {
 	  #basicauth / Bob hiccup
-	  proxy / {{$link}}:{{$sport}} {
+	  proxy / {{range $containers -}}{{.Key}}{{end -}}:{{$sport}} {
 	    websocket
 	    proxy_header Host {host}
 	    proxy_header X-Real-IP {remote}
