@@ -1,6 +1,8 @@
 #!/bin/sh
 export GODEBUG=netdns=cgo
 sleep 10
-gosuv add --name "confd" -- /usr/local/bin/confd -backend rancher -interval ${CONFD_INTERVAL:-15}
-gosuv add --name "caddy" -- /usr/bin/caddy -conf /etc/Caddyfile
-gosuv tail -f confd
+#gosuv add --name "confd" -- /usr/local/bin/confd -backend rancher -interval ${CONFD_INTERVAL:-15}
+#gosuv add --name "caddy" -- /usr/bin/caddy -conf /etc/Caddyfile
+#gosuv tail -f confd
+confd -backend rancher -interval ${CONFD_INTERVAL:-15} &
+caddy -conf /etc/Caddyfile -restart inproc 

@@ -9,3 +9,4 @@ keys = [
     "/stacks",
 ]
 #check_cmd = "/usr/local/bin/get_certificates.sh"
+reload_cmd = "killall -USR1 caddy"

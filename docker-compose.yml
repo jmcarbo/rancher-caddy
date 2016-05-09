@@ -12,6 +12,6 @@ caddy:
     io.rancher.scheduler.affinity:host_label: jmca.frontend=true
   command: /bin/sh
   environment:
-    - HOSTS=cad3/isawesome;blu.bla.com:80=8000,bla.fff.com:80=9999@isawesome/rufus;addd:80=9999
+    - HOSTS=cad3/isawesome;isawesome.192.168.10.2.xip.io:80=80,isawesome2.192.168.10.2.xip.io:80=80@isawesome/rufus;rufus.192.168.10.2.xip.io:80=80
   tty: true
   stdin: true
