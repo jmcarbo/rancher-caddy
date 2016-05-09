@@ -64,7 +64,7 @@
          {{ range $proxies -}}{{ $vhost := split . ":" -}}{{ $vhostname := index $vhost 0 -}}{{ $ports := split (index $vhost 1) "=" -}}{{ $dport := index $ports 0 -}}{{$vhostname}}:{{$dport}} {{end -}} {
            proxy / {{$target}}:{{$sport}} {
       	    websocket
-      	    proxy_header Host {{$targethostname}}
+      	    proxy_header Host {host}
       	    proxy_header X-Real-IP {remote}
       	    proxy_header X-Forwarded-Proto {scheme}
            }

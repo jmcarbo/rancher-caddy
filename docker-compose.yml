@@ -10,11 +10,12 @@ caddy:
   labels:
     io.rancher.container.pull_image: always
     io.rancher.scheduler.affinity:host_label: jmca.frontend=true
-  command: /bin/sh
+  #command: /bin/sh
   environment:
     - HOSTS=cad3/isawesome;isawesome.192.168.10.2.xip.io:80=80,isawesome2.192.168.10.2.xip.io:80=80
       @isawesome/rufus;rufus.192.168.10.2.xip.io:80=80,isawesome.193.145.244.254.xip.io:80=80
       @hello/world;hello.192.168.10.2.xip.io:80=80
       @172.20.4.17#marbiobanc.imim.es;marbiobanc.193.145.244.254.xip.io:80=80
+      @www.imim.cat;wwwimim.193.145.244.254.xip.io:80=80
   tty: true
   stdin: true
