@@ -23,7 +23,7 @@
 	    proxy_header X-Real-IP {remote}
 	    proxy_header X-Forwarded-Proto {scheme}
      }
-     log /logs/{{$link}}-access.log
+     log /logs/{{$stack}}-{{$service}}-access.log
      {
        rotate {
          size 100 # Rotate after 100 MB
