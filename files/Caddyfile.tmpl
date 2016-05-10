@@ -95,6 +95,13 @@
          {{ $target := $link -}}
          {{ $targethostname := $link -}}
 
+         {{if gt (len $line) 3 -}}
+           {{$redir := index $line 3 -}}
+           {{ range $proxies -}}{{ $vhost := split . ":" -}}{{ $vhostname := index $vhost 0 -}}{{ $ports := split (index $vhost 1) "=" -}}{{ $dport := index $ports 0 -}}{{$vhostname}}:{{$dport}} {{end -}} {
+              redir {{$redir}}
+           }
+         {{ else -}}
+
          {{ range $proxies -}}{{ $vhost := split . ":" -}}{{ $vhostname := index $vhost 0 -}}{{ $ports := split (index $vhost 1) "=" -}}{{ $dport := index $ports 0 -}}{{$vhostname}}:{{$dport}} {{end -}} {
          {{if gt (len $line) 2 -}}
            {{$authorization := index $line 2 -}}
@@ -128,6 +135,7 @@
                }
              }
           }
+         {{end -}}
        {{end -}}
   {{end -}}
 
