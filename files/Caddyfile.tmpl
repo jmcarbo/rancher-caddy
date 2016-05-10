@@ -1,4 +1,5 @@
 #isawesome;blu.bla.com:80=8000,bla.fff.com:80=9999@world;addd
+
 {{ $hosts := split (getenv "HOSTS") "@" -}}
 {{ range $hosts }}
    {{ $line := split . ";" -}}
@@ -26,6 +27,15 @@
            {{$password := index $authitems 1 -}}
            basicauth / {{$user}} {{$password}}
          {{end -}}
+         
+         {{ if (eq $dport "443") -}}
+           {{ if (ne (getenv "TLS_DIR") "") -}}
+           tls {
+             load {{ getenv "TLS_DIR"}}
+           }
+           {{ end -}}
+         {{ end -}}
+
          proxy / {{range $containers -}}{{.Value}}:{{$sport}} {{end -}} {
     	    websocket
     	    proxy_header Host {host}
@@ -49,6 +59,22 @@
          {{$target := index $newlinks 0 -}}
          {{$targethostname := index $newlinks 1 -}}
          {{ range $proxies -}}{{ $vhost := split . ":" -}}{{ $vhostname := index $vhost 0 -}}{{ $ports := split (index $vhost 1) "=" -}}{{ $dport := index $ports 0 -}}{{$vhostname}}:{{$dport}} {{end -}} {
+         {{if gt (len $line) 2 -}}
+           {{$authorization := index $line 2 -}}
+           {{$authitems := split $authorization ":" -}}
+           {{$user := index $authitems 0 -}}
+           {{$password := index $authitems 1 -}}
+           basicauth / {{$user}} {{$password}}
+         {{end -}}
+
+         {{ if (eq $dport "443") -}}
+           {{ if (ne (getenv "TLS_DIR") "") -}}
+           tls {
+             load {{ getenv "TLS_DIR"}}
+           }
+           {{ end -}}
+         {{ end -}}
+
            proxy / {{$target}}:{{$sport}} {
       	    websocket
       	    proxy_header Host {{$targethostname}}
@@ -70,6 +96,22 @@
          {{ $targethostname := $link -}}
 
          {{ range $proxies -}}{{ $vhost := split . ":" -}}{{ $vhostname := index $vhost 0 -}}{{ $ports := split (index $vhost 1) "=" -}}{{ $dport := index $ports 0 -}}{{$vhostname}}:{{$dport}} {{end -}} {
+         {{if gt (len $line) 2 -}}
+           {{$authorization := index $line 2 -}}
+           {{$authitems := split $authorization ":" -}}
+           {{$user := index $authitems 0 -}}
+           {{$password := index $authitems 1 -}}
+           basicauth / {{$user}} {{$password}}
+         {{end -}}
+
+         {{ if (eq $dport "443") -}}
+           {{ if (ne (getenv "TLS_DIR") "") -}}
+           tls {
+             load {{ getenv "TLS_DIR"}}
+           }
+           {{ end -}}
+         {{ end -}}
+
            proxy / {{$target}}:{{$sport}} {
       	    websocket
       	    proxy_header Host {host}
