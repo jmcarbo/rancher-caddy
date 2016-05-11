@@ -23,9 +23,11 @@
          {{if gt (len $line) 2 -}}
            {{$authorization := index $line 2 -}}
            {{$authitems := split $authorization ":" -}}
-           {{$user := index $authitems 0 -}}
-           {{$password := index $authitems 1 -}}
-           basicauth / {{$user}} {{$password}}
+           {{if gt (len $authitems) 1 -}}
+             {{$user := index $authitems 0 -}}
+             {{$password := index $authitems 1 -}}
+             basicauth / {{$user}} {{$password}}
+           {{end -}}
          {{end -}}
          
          {{ if (eq $dport "443") -}}
@@ -67,9 +69,11 @@
          {{if gt (len $line) 2 -}}
            {{$authorization := index $line 2 -}}
            {{$authitems := split $authorization ":" -}}
-           {{$user := index $authitems 0 -}}
-           {{$password := index $authitems 1 -}}
-           basicauth / {{$user}} {{$password}}
+           {{if gt (len $authitems) 1 -}}
+             {{$user := index $authitems 0 -}}
+             {{$password := index $authitems 1 -}}
+             basicauth / {{$user}} {{$password}}
+           {{end -}}
          {{end -}}
 
          {{ if (eq $dport "443") -}}
@@ -115,9 +119,11 @@
          {{if gt (len $line) 2 -}}
            {{$authorization := index $line 2 -}}
            {{$authitems := split $authorization ":" -}}
-           {{$user := index $authitems 0 -}}
-           {{$password := index $authitems 1 -}}
-           basicauth / {{$user}} {{$password}}
+           {{if gt (len $authitems) 1 -}}
+             {{$user := index $authitems 0 -}}
+             {{$password := index $authitems 1 -}}
+             basicauth / {{$user}} {{$password}}
+           {{end -}}
          {{end -}}
 
          {{ if (eq $dport "443") -}}
